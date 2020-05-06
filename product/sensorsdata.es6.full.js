@@ -2223,7 +2223,7 @@ sd.setPreConfig = function(sa) {
 
 sd.setInitVar = function() {
   sd._t = sd._t || 1 * new Date();
-  sd.lib_version = '1.15.1';
+  sd.lib_version = '1.15.2';
   sd.is_first_visitor = false;
   sd.source_channel_standard = 'utm_source utm_medium utm_campaign utm_content utm_term';
 };
@@ -4347,15 +4347,15 @@ _.each(methods, function(method) {
 
 
 
-if (typeof window['sensorsDataAnalytic201505'] === 'string') {
-  sd.setPreConfig(window[sensorsDataAnalytic201505]);
-  window[sensorsDataAnalytic201505] = sd;
-  window['sensorsDataAnalytic201505'] = sd;
+if (typeof window['BaizeAnalyticsV20202005'] === 'string') {
+  sd.setPreConfig(window[BaizeAnalyticsV20202005]);
+  window[BaizeAnalyticsV20202005] = sd;
+  window['BaizeAnalyticsV20202005'] = sd;
   sd.init();
-} else if (typeof window['sensorsDataAnalytic201505'] === 'undefined') {
-  window['sensorsDataAnalytic201505'] = sd;
+} else if (typeof window['BaizeAnalyticsV20202005'] === 'undefined') {
+  window['BaizeAnalyticsV20202005'] = sd;
 } else {
-  sd = window['sensorsDataAnalytic201505'];
+  sd = window['BaizeAnalyticsV20202005'];
 }
 
 export default sd;

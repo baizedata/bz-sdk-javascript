@@ -492,13 +492,13 @@
           return 0;
         }
         var hash = 0;
-        var char = null;
+        var tchar = null;
         if (str.length == 0) {
           return hash;
         }
         for (var i = 0; i < str.length; i++) {
-          char = str.charCodeAt(i);
-          hash = ((hash << 5) - hash) + char;
+          tchar = str.charCodeAt(i);
+          hash = ((hash << 5) - hash) + tchar;
           hash = hash & hash;
         }
         return hash;
@@ -2236,7 +2236,7 @@
 
     sd.setInitVar = function() {
       sd._t = sd._t || 1 * new Date();
-      sd.lib_version = '1.15.1';
+      sd.lib_version = '1.15.2';
       sd.is_first_visitor = false;
       sd.source_channel_standard = 'utm_source utm_medium utm_campaign utm_content utm_term';
     };
@@ -2607,88 +2607,88 @@
       }
     };
 
-    sd.appendProfile = function(p, c) {
-      if (saEvent.check({
-          propertiesMust: p
-        })) {
-        _.each(p, function(value, key) {
-          if (_.isString(value)) {
-            p[key] = [value];
-          } else if (_.isArray(value)) {
-            p[key] = value;
-          } else {
-            delete p[key];
-            sd.log('appendProfile属性的值必须是字符串或者数组');
-          }
-        });
-        if (!_.isEmptyObject(p)) {
-          saEvent.send({
-            type: 'profile_append',
-            properties: p
-          }, c);
-        }
-      }
-    };
-    sd.incrementProfile = function(p, c) {
-      var str = p;
-      if (_.isString(p)) {
-        p = {}
-        p[str] = 1;
-      }
+    // sd.appendProfile = function(p, c) {
+    //   if (saEvent.check({
+    //       propertiesMust: p
+    //     })) {
+    //     _.each(p, function(value, key) {
+    //       if (_.isString(value)) {
+    //         p[key] = [value];
+    //       } else if (_.isArray(value)) {
+    //         p[key] = value;
+    //       } else {
+    //         delete p[key];
+    //         sd.log('appendProfile属性的值必须是字符串或者数组');
+    //       }
+    //     });
+    //     if (!_.isEmptyObject(p)) {
+    //       saEvent.send({
+    //         type: 'profile_append',
+    //         properties: p
+    //       }, c);
+    //     }
+    //   }
+    // };
+    // sd.incrementProfile = function(p, c) {
+    //   var str = p;
+    //   if (_.isString(p)) {
+    //     p = {}
+    //     p[str] = 1;
+    //   }
+    //
+    //   function isChecked(p) {
+    //     for (var i in p) {
+    //       if (!/-*\d+/.test(String(p[i]))) {
+    //         return false;
+    //       }
+    //     }
+    //     return true;
+    //   }
+    //
+    //   if (saEvent.check({
+    //       propertiesMust: p
+    //     })) {
+    //     if (isChecked(p)) {
+    //       saEvent.send({
+    //         type: 'profile_increment',
+    //         properties: p
+    //       }, c);
+    //     } else {
+    //       sd.log('profile_increment的值只能是数字');
+    //     }
+    //   }
+    // };
 
-      function isChecked(p) {
-        for (var i in p) {
-          if (!/-*\d+/.test(String(p[i]))) {
-            return false;
-          }
-        }
-        return true;
-      }
-
-      if (saEvent.check({
-          propertiesMust: p
-        })) {
-        if (isChecked(p)) {
-          saEvent.send({
-            type: 'profile_increment',
-            properties: p
-          }, c);
-        } else {
-          sd.log('profile_increment的值只能是数字');
-        }
-      }
-    };
-
-    sd.deleteProfile = function(c) {
-      saEvent.send({
-        type: 'profile_delete'
-      }, c);
-      store.set('distinct_id', _.UUID());
-      store.set('first_id', '');
-    };
-    sd.unsetProfile = function(p, c) {
-      var str = p;
-      var temp = {};
-      if (_.isString(p)) {
-        p = [];
-        p.push(str);
-      }
-      if (_.isArray(p)) {
-        _.each(p, function(v) {
-          if (_.isString(v)) {
-            temp[v] = true;
-          } else {
-            sd.log('profile_unset给的数组里面的值必须时string,已经过滤掉', v);
-          }
-        });
-        saEvent.send({
-          type: 'profile_unset',
-          properties: temp
-        }, c);
-      } else {
-        sd.log('profile_unset的参数是数组');
-      }
-    };
+    // sd.deleteProfile = function(c) {
+    //   saEvent.send({
+    //     type: 'profile_delete'
+    //   }, c);
+    //   store.set('distinct_id', _.UUID());
+    //   store.set('first_id', '');
+    // };
+    // sd.unsetProfile = function(p, c) {
+    //   var str = p;
+    //   var temp = {};
+    //   if (_.isString(p)) {
+    //     p = [];
+    //     p.push(str);
+    //   }
+    //   if (_.isArray(p)) {
+    //     _.each(p, function(v) {
+    //       if (_.isString(v)) {
+    //         temp[v] = true;
+    //       } else {
+    //         sd.log('profile_unset给的数组里面的值必须时string,已经过滤掉', v);
+    //       }
+    //     });
+    //     saEvent.send({
+    //       type: 'profile_unset',
+    //       properties: temp
+    //     }, c);
+    //   } else {
+    //     sd.log('profile_unset的参数是数组');
+    //   }
+    // };
     sd.identify = function(id, isSave) {
       if (typeof id === 'number') {
         id = String(id);
@@ -2740,7 +2740,7 @@
       }
     };
 
-    sd.trackAbtest = function(t, g) {};
+    // sd.trackAbtest = function(t, g) {};
 
     sd.registerPage = function(obj) {
       if (saEvent.check({
@@ -4341,7 +4341,22 @@
 
     };
 
-    var methods = ['track', 'quick', 'register', 'registerPage', 'registerOnce', 'trackSignup', 'setProfile', 'setOnceProfile', 'appendProfile', 'incrementProfile', 'deleteProfile', 'unsetProfile', 'identify', 'login', 'logout', 'trackLink', 'clearAllRegister'];
+    var methods = ['track',
+      'quick',
+      'register',
+      'registerPage',
+      'registerOnce',
+      'trackSignup',
+      'setProfile',
+      'setOnceProfile',
+      // 'appendProfile',
+      // 'incrementProfile',
+      // 'deleteProfile',
+      // 'unsetProfile',
+      'identify',
+      'login', 'logout',
+      'trackLink',
+      'clearAllRegister'];
 
     _.each(methods, function(method) {
       var oldFunc = sd[method];
@@ -4360,16 +4375,16 @@
 
 
 
-    if (typeof window['sensorsDataAnalytic201505'] === 'string') {
-      sd.setPreConfig(window[sensorsDataAnalytic201505]);
-      window[sensorsDataAnalytic201505] = sd;
-      window['sensorsDataAnalytic201505'] = sd;
+    if (typeof window['BaizeAnalyticsV20202005'] === 'string') {
+      sd.setPreConfig(window[BaizeAnalyticsV20202005]);
+      window[BaizeAnalyticsV20202005] = sd;
+      window['BaizeAnalyticsV20202005'] = sd;
       sd.init();
-    } else if (typeof window['sensorsDataAnalytic201505'] === 'undefined') {
-      window['sensorsDataAnalytic201505'] = sd;
+    } else if (typeof window['BaizeAnalyticsV20202005'] === 'undefined') {
+      window['BaizeAnalyticsV20202005'] = sd;
       return sd;
     } else {
-      return window['sensorsDataAnalytic201505'];
+      return window['BaizeAnalyticsV20202005'];
     }
 
 
