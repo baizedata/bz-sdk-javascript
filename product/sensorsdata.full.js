@@ -1107,7 +1107,7 @@
         },
         getNewUser: function() {
           var prefix = 'new_user';
-          if (this.get('sensorsdata_is_new_user') !== null || this.get(this.getCookieName(prefix)) !== null) {
+          if (this.get('baize_is_new_user') !== null || this.get(this.getCookieName(prefix)) !== null) {
             return true;
           } else {
             return false;
@@ -2338,7 +2338,7 @@
         if (!_.isObject(obj) || _.isEmptyObject(obj)) {
           return false;
         }
-        var saveData = _.localStorage.parse('sensorsdata_2015_jssdk_profile');
+        var saveData = _.localStorage.parse('baize_2020_jssdk_profile');
         var isNeedSend = false;
         if (_.isObject(saveData) && !_.isEmptyObject(saveData)) {
           for (var i in obj) {
@@ -2348,11 +2348,11 @@
             }
           }
           if (isNeedSend) {
-            _.localStorage.set('sensorsdata_2015_jssdk_profile', JSON.stringify(saveData));
+            _.localStorage.set('baize_2020_jssdk_profile', JSON.stringify(saveData));
             sd.setProfile(obj);
           }
         } else {
-          _.localStorage.set('sensorsdata_2015_jssdk_profile', JSON.stringify(obj));
+          _.localStorage.set('baize_2020_jssdk_profile', JSON.stringify(obj));
           sd.setProfile(obj);
         }
       },
@@ -2607,28 +2607,28 @@
       }
     };
 
-    // sd.appendProfile = function(p, c) {
-    //   if (saEvent.check({
-    //       propertiesMust: p
-    //     })) {
-    //     _.each(p, function(value, key) {
-    //       if (_.isString(value)) {
-    //         p[key] = [value];
-    //       } else if (_.isArray(value)) {
-    //         p[key] = value;
-    //       } else {
-    //         delete p[key];
-    //         sd.log('appendProfile属性的值必须是字符串或者数组');
-    //       }
-    //     });
-    //     if (!_.isEmptyObject(p)) {
-    //       saEvent.send({
-    //         type: 'profile_append',
-    //         properties: p
-    //       }, c);
-    //     }
-    //   }
-    // };
+    sd.appendProfile = function(p, c) {
+      if (saEvent.check({
+          propertiesMust: p
+        })) {
+        _.each(p, function(value, key) {
+          if (_.isString(value)) {
+            p[key] = [value];
+          } else if (_.isArray(value)) {
+            p[key] = value;
+          } else {
+            delete p[key];
+            sd.log('appendProfile属性的值必须是字符串或者数组');
+          }
+        });
+        if (!_.isEmptyObject(p)) {
+          saEvent.send({
+            type: 'profile_append',
+            properties: p
+          }, c);
+        }
+      }
+    };
     // sd.incrementProfile = function(p, c) {
     //   var str = p;
     //   if (_.isString(p)) {
@@ -4348,14 +4348,15 @@
       'registerOnce',
       'trackSignup',
       'setProfile',
-      'setOnceProfile',
-      // 'appendProfile',
+      // 'setOnceProfile',
+      'appendProfile',
       // 'incrementProfile',
       // 'deleteProfile',
       // 'unsetProfile',
       'identify',
-      'login', 'logout',
-      'trackLink',
+      'login',
+      'logout',
+      // 'trackLink',
       'clearAllRegister'];
 
     _.each(methods, function(method) {

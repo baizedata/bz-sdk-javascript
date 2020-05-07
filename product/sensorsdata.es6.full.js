@@ -1094,7 +1094,7 @@ if (typeof JSON !== 'object') {
     },
     getNewUser: function() {
       var prefix = 'new_user';
-      if (this.get('sensorsdata_is_new_user') !== null || this.get(this.getCookieName(prefix)) !== null) {
+      if (this.get('baize_is_new_user') !== null || this.get(this.getCookieName(prefix)) !== null) {
         return true;
       } else {
         return false;
@@ -2325,7 +2325,7 @@ var commonWays = {
     if (!_.isObject(obj) || _.isEmptyObject(obj)) {
       return false;
     }
-    var saveData = _.localStorage.parse('sensorsdata_2015_jssdk_profile');
+    var saveData = _.localStorage.parse('baize_2020_jssdk_profile');
     var isNeedSend = false;
     if (_.isObject(saveData) && !_.isEmptyObject(saveData)) {
       for (var i in obj) {
@@ -2335,11 +2335,11 @@ var commonWays = {
         }
       }
       if (isNeedSend) {
-        _.localStorage.set('sensorsdata_2015_jssdk_profile', JSON.stringify(saveData));
+        _.localStorage.set('baize_2020_jssdk_profile', JSON.stringify(saveData));
         sd.setProfile(obj);
       }
     } else {
-      _.localStorage.set('sensorsdata_2015_jssdk_profile', JSON.stringify(obj));
+      _.localStorage.set('baize_2020_jssdk_profile', JSON.stringify(obj));
       sd.setProfile(obj);
     }
   },
