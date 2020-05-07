@@ -2378,21 +2378,21 @@
           _referring_host: _.info.pageProp.referrer_host
         });
       },
-      trackHeatMap: function(target, props, callback) {
-        if ((typeof target === 'object') && target.tagName) {
-          var tagName = target.tagName.toLowerCase();
-          var parent_ele = target.parentNode.tagName.toLowerCase();
-          if (tagName !== 'button' && tagName !== 'a' && parent_ele !== 'a' && parent_ele !== 'button' && tagName !== 'input' && tagName !== 'textarea' && !_.hasAttribute(target, 'data-baize-click')) {
-            heatmap.start(null, target, tagName, props, callback);
-          }
-        }
-      },
-      trackAllHeatMap: function(target, props, callback) {
-        if ((typeof target === 'object') && target.tagName) {
-          var tagName = target.tagName.toLowerCase();
-          heatmap.start(null, target, tagName, props, callback);
-        }
-      },
+      // trackHeatMap: function(target, props, callback) {
+      //   if ((typeof target === 'object') && target.tagName) {
+      //     var tagName = target.tagName.toLowerCase();
+      //     var parent_ele = target.parentNode.tagName.toLowerCase();
+      //     if (tagName !== 'button' && tagName !== 'a' && parent_ele !== 'a' && parent_ele !== 'button' && tagName !== 'input' && tagName !== 'textarea' && !_.hasAttribute(target, 'data-baize-click')) {
+      //       heatmap.start(null, target, tagName, props, callback);
+      //     }
+      //   }
+      // },
+      // trackAllHeatMap: function(target, props, callback) {
+      //   if ((typeof target === 'object') && target.tagName) {
+      //     var tagName = target.tagName.toLowerCase();
+      //     heatmap.start(null, target, tagName, props, callback);
+      //   }
+      // },
       autoTrackSinglePage: function(para, callback) {
         if (this.autoTrackIsUsed) {
           var url = _.info.pageProp.url;
