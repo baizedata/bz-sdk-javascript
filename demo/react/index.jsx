@@ -16,9 +16,9 @@ class App extends React.Component {
   }
 
   handleLocationChange = (location) => {
-    // 路由变化时执行 sensors.quick("autoTrackSinglePage");
+    // 路由变化时执行 baize.quick("autoTrackSinglePage");
     console.log('changed:', location);
-    sensors.quick("autoTrackSinglePage");
+    baize.quick("autoTrackSinglePage");
   }
 
   render() {
