@@ -2237,6 +2237,7 @@
     sd.setInitVar = function() {
       sd._t = sd._t || 1 * new Date();
       sd.lib_version = '1.15.2';
+      sd.lib_code = 10000;
       sd.is_first_visitor = false;
       sd.source_channel_standard = 'utm_source utm_medium utm_campaign utm_content utm_term';
     };
@@ -3436,10 +3437,12 @@
     saEvent.send = function(p, callback) {
       var data = {
         distinct_id: store.getDistinctId(),
+        $app_id: sd.para.app_id,
         lib: {
           $lib: 'js',
           $lib_method: 'code',
-          $lib_version: String(sd.lib_version)
+          $lib_version: String(sd.lib_version),
+          $lib_code: sd.lib_code
         },
         properties: {}
       };
@@ -3493,6 +3496,8 @@
 
       sd.addReferrerHost(data);
       sd.addPropsHook(data);
+
+      data.$is_login_id = data.distinct_id != data.anonymous_id && data.distinct_id != null && data.distinct_id != '';
 
       if (sd.para.debug_mode === true) {
         sd.log(data);

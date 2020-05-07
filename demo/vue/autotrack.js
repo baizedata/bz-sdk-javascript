@@ -18,11 +18,10 @@
     y.parentNode.insertBefore(x, y);
   }
 })({
-  // sdk_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.10/sensorsdata.min.js',
-  sdk_url: 'http://harness.oss-cn-hangzhou.aliyuncs.com/sensorsdata.min.js',
-  // heatmap_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.13.10/heatmap.min.js',
+  app_id: '3',
+  sdk_url: 'http://harness.oss-cn-hangzhou.aliyuncs.com/baizedata.min.js',
   heatmap_url: 'http://harness.oss-cn-hangzhou.aliyuncs.com/heatmap.min.js',
-  name: 'sensors',
-  server_url: 'https://test-syg.datasink.sensorsdata.cn/sa?token=27f1e21b78daf376&project=lixiang',
+  name: 'baize',
+  server_url: 'http://localhost:8432/logger/webbz',
   heatmap: {}
 });

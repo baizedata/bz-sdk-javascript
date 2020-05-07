@@ -31,7 +31,7 @@ router.beforeEach(function (to,from,next){
 
     next();
     //console.log('to:', to, 'from:', from, 'URL:', document.URL);
-    sensors.quick("autoTrackSinglePage"); // after the next(); statement
+    baize.quick("autoTrackSinglePage"); // after the next(); statement
   },0);
 });
 
