@@ -1190,7 +1190,7 @@
         isSupport: function() {
           var supported = true;
           try {
-            var key = '__sensorsdatasupport__';
+            var key = '__baizedatasupport__';
             var val = 'testIsSupportStorage';
             _.localStorage.set(key, val);
             if (_.localStorage.get(key) !== val) {
@@ -1210,7 +1210,7 @@
         isSupport: function() {
           var supported = true;
 
-          var key = '__sensorsdatasupport__';
+          var key = '__baizedatasupport__';
           var val = 'testIsSupportStorage';
           try {
             if (sessionStorage && sessionStorage.setItem) {
@@ -1536,11 +1536,11 @@
           var domainStr = '.' + splitResult.splice(splitResult.length - 1, 1);
           while (splitResult.length > 0) {
             domainStr = '.' + splitResult.splice(splitResult.length - 1, 1) + domainStr;
-            document.cookie = "sensorsdata_domain_test=true; path=/; domain=" + domainStr;
-            if (document.cookie.indexOf('sensorsdata_domain_test=true') !== -1) {
+            document.cookie = "baizedata_domain_test=true; path=/; domain=" + domainStr;
+            if (document.cookie.indexOf('baizedata_domain_test=true') !== -1) {
               var now = new Date();
               now.setTime(now.getTime() - 1000);
-              document.cookie = "sensorsdata_domain_test=true; expires=" + now.toGMTString() + "; path=/; domain=" + domainStr;
+              document.cookie = "baizedata_domain_test=true; expires=" + now.toGMTString() + "; path=/; domain=" + domainStr;
               return domainStr;
             }
           }
@@ -2243,7 +2243,7 @@
     };
 
     sd.log = function() {
-      if ((_.sessionStorage.isSupport() && sessionStorage.getItem('sensorsdata_jssdk_debug') === 'true') || sd.para.show_log) {
+      if ((_.sessionStorage.isSupport() && sessionStorage.getItem('baizedata_jssdk_debug') === 'true') || sd.para.show_log) {
 
         if (sd.para.show_log === true || sd.para.show_log === 'string' || sd.para.show_log === false) {
           arguments[0] = _.formatJsonString(arguments[0]);
@@ -2262,7 +2262,7 @@
     sd.enableLocalLog = function() {
       if (_.sessionStorage.isSupport()) {
         try {
-          sessionStorage.setItem('sensorsdata_jssdk_debug', 'true');
+          sessionStorage.setItem('baizedata_jssdk_debug', 'true');
         } catch (e) {
           sd.log('enableLocalLog error: ' + e.message);
         }
@@ -2271,7 +2271,7 @@
 
     sd.disableLocalLog = function() {
       if (_.sessionStorage.isSupport()) {
-        sessionStorage.removeItem('sensorsdata_jssdk_debug');
+        sessionStorage.removeItem('baizedata_jssdk_debug');
       }
     };
 
@@ -2279,7 +2279,7 @@
       distinct_id: function() {},
       jssdkDebug: function() {},
       _sendDebug: function(debugString) {
-        sd.track('_sensorsdata2019_debug', {
+        sd.track('_baizedata2020_debug', {
           _jssdk_debug_info: debugString
         });
       },
@@ -2382,7 +2382,7 @@
         if ((typeof target === 'object') && target.tagName) {
           var tagName = target.tagName.toLowerCase();
           var parent_ele = target.parentNode.tagName.toLowerCase();
-          if (tagName !== 'button' && tagName !== 'a' && parent_ele !== 'a' && parent_ele !== 'button' && tagName !== 'input' && tagName !== 'textarea' && !_.hasAttribute(target, 'data-sensors-click')) {
+          if (tagName !== 'button' && tagName !== 'a' && parent_ele !== 'a' && parent_ele !== 'button' && tagName !== 'input' && tagName !== 'textarea' && !_.hasAttribute(target, 'data-baize-click')) {
             heatmap.start(null, target, tagName, props, callback);
           }
         }
@@ -2514,8 +2514,8 @@
         }
         _.each(para, function(v, k) {
           if (_.isFunction(v)) {
-            if (_.isObject(window.SensorsDataWebJSSDKPlugin) && window.SensorsDataWebJSSDKPlugin[k]) {
-              v(window.SensorsDataWebJSSDKPlugin[k]);
+            if (_.isObject(window.BaizeDataWebJSSDKPlugin) && window.BaizeDataWebJSSDKPlugin[k]) {
+              v(window.BaizeDataWebJSSDKPlugin[k]);
             } else {
               sd.log(k + '没有获取到,请查阅文档，调整' + k + '的引入顺序！')
             }
@@ -3211,9 +3211,9 @@
       }
 
       if (sd.para.use_app_track === true || sd.para.use_app_track === 'only') {
-        if ((typeof SensorsData_APP_JS_Bridge === 'object') && (SensorsData_APP_JS_Bridge.sensorsdata_verify || SensorsData_APP_JS_Bridge.sensorsdata_track)) {
-          if (SensorsData_APP_JS_Bridge.sensorsdata_verify) {
-            if (!SensorsData_APP_JS_Bridge.sensorsdata_verify(JSON.stringify(_.extend({
+        if ((typeof BaizeData_APP_JS_Bridge === 'object') && (BaizeData_APP_JS_Bridge.baizedata_verify || BaizeData_APP_JS_Bridge.baizedata_track)) {
+          if (BaizeData_APP_JS_Bridge.baizedata_verify) {
+            if (!BaizeData_APP_JS_Bridge.baizedata_verify(JSON.stringify(_.extend({
                 server_url: sd.para.server_url
               }, originData)))) {
               if (sd.para.use_app_track_is_send) {
@@ -3228,15 +3228,15 @@
               (typeof callback === 'function') && callback();
             }
           } else {
-            SensorsData_APP_JS_Bridge.sensorsdata_track(JSON.stringify(_.extend({
+            BaizeData_APP_JS_Bridge.baizedata_track(JSON.stringify(_.extend({
               server_url: sd.para.server_url
             }, originData)));
             (typeof callback === 'function') && callback();
           }
-        } else if ((/sensors-verify/.test(navigator.userAgent) || /sa-sdk-ios/.test(navigator.userAgent)) && !window.MSStream) {
+        } else if ((/baize-verify/.test(navigator.userAgent) || /sa-sdk-ios/.test(navigator.userAgent)) && !window.MSStream) {
           var iframe = null;
-          if (/sensors-verify/.test(navigator.userAgent)) {
-            var match = navigator.userAgent.match(/sensors-verify\/([^\s]+)/);
+          if (/baize-verify/.test(navigator.userAgent)) {
+            var match = navigator.userAgent.match(/baize-verify\/([^\s]+)/);
             if (match && match[0] && (typeof match[1] === 'string') && (match[1].split('?').length === 2)) {
               match = match[1].split('?');
               var hostname = null;
@@ -3249,7 +3249,7 @@
               };
               if (hostname && hostname === match[0] && project && project === match[1]) {
                 iframe = document.createElement('iframe');
-                iframe.setAttribute('src', 'sensorsanalytics://trackEvent?event=' + encodeURIComponent(JSON.stringify(_.extend({
+                iframe.setAttribute('src', 'baizeanalytics://trackEvent?event=' + encodeURIComponent(JSON.stringify(_.extend({
                   server_url: sd.para.server_url
                 }, originData))));
                 document.documentElement.appendChild(iframe);
@@ -3269,7 +3269,7 @@
             }
           } else {
             iframe = document.createElement('iframe');
-            iframe.setAttribute('src', 'sensorsanalytics://trackEvent?event=' + encodeURIComponent(JSON.stringify(_.extend({
+            iframe.setAttribute('src', 'baizeanalytics://trackEvent?event=' + encodeURIComponent(JSON.stringify(_.extend({
               server_url: sd.para.server_url
             }, originData))));
             document.documentElement.appendChild(iframe);
@@ -3589,7 +3589,7 @@
         }
       },
       initSessionState: function() {
-        var ds = _.cookie.get('sensorsdata2015session');
+        var ds = _.cookie.get('baizedata2020session');
         var state = null;
         if (ds !== null && (typeof(state = JSON.parse(ds)) === 'object')) {
           this._sessionState = state || {};
@@ -3667,7 +3667,7 @@
       },
       sessionSave: function(props) {
         this._sessionState = props;
-        _.cookie.set('sensorsdata2015session', JSON.stringify(this._sessionState), 0);
+        _.cookie.set('baizedata2020session', JSON.stringify(this._sessionState), 0);
       },
       save: function() {
         var copyState = JSON.parse(JSON.stringify(this._state));
@@ -3689,7 +3689,7 @@
             sub = 'sa_jssdk_2015_root';
           }
         } else {
-          sub = 'sensorsdata2015jssdkcross';
+          sub = 'baizedata2020jssdkcross';
         }
         return sub;
       },
@@ -3744,7 +3744,7 @@
       },
       setDeviceId: function(uuid) {
         var device_id = null;
-        var ds = _.cookie.get('sensorsdata2015jssdkcross');
+        var ds = _.cookie.get('baizedata2020jssdkcross');
         var state = {};
         if (ds != null && _.isJSONString(ds)) {
           state = JSON.parse(ds);
@@ -3759,7 +3759,7 @@
           store.set('$device_id', device_id);
         } else {
           state.$device_id = device_id;
-          _.cookie.set('sensorsdata2015jssdkcross', JSON.stringify(state), null, true);
+          _.cookie.set('baizedata2020jssdkcross', JSON.stringify(state), null, true);
         }
 
         if (sd.para.is_track_device_id) {
@@ -3880,11 +3880,12 @@
         }
         if (web_url && web_url[0] && web_url[1]) {
           if (web_url[1].slice(0, 5) === 'http:' && location.protocol === 'https:') {
-            sd.errorMsg = '您的当前页面是https的地址，神策分析环境也必须是https！';
+            sd.errorMsg = '您的当前页面是https的地址，白泽分析环境也必须是https！';
           }
         }
         if (!sd.para.heatmap_url) {
-          sd.para.heatmap_url = location.protocol + '//static.sensorsdata.cn/sdk/' + sd.lib_version + '/heatmap.min.js';
+          // sd.para.heatmap_url = location.protocol + '//static.sensorsdata.cn/sdk/' + sd.lib_version + '/heatmap.min.js';
+          sd.para.heatmap_url = 'http://harness.oss-cn-hangzhou.aliyuncs.com/' + sd.lib_version + '/heatmap.min.js';
         }
 
       },
@@ -4150,7 +4151,7 @@
 
             var parent_ele = target.parentNode;
 
-            if (tagName === 'a' || tagName === 'button' || tagName === 'input' || tagName === 'textarea' || _.hasAttribute(target, 'data-sensors-click')) {
+            if (tagName === 'a' || tagName === 'button' || tagName === 'input' || tagName === 'textarea' || _.hasAttribute(target, 'data-baize-click')) {
               that.start(ev, target, tagName);
             } else if (parent_ele.tagName.toLowerCase() === 'button' || parent_ele.tagName.toLowerCase() === 'a') {
               that.start(ev, parent_ele, target.parentNode.tagName.toLowerCase());
@@ -4182,7 +4183,7 @@
                     sa_jssdk_heatmap_render(sd, data, type, url);
                     if (typeof console === 'object' && typeof console.log === 'function') {
                       if (!(sd.heatmap_version && (sd.heatmap_version === sd.lib_version))) {
-                        console.log('heatmap.js与sensorsdata.js版本号不一致，可能存在风险!');
+                        console.log('heatmap.js与baizedata.js版本号不一致，可能存在风险!');
                       }
                     }
                   }
@@ -4201,29 +4202,29 @@
           heatmap.setNotice(web_url);
           if (_.sessionStorage.isSupport()) {
             if (web_url && web_url[0] && web_url[1]) {
-              sessionStorage.setItem('sensors_heatmap_url', decodeURIComponent(web_url[1]));
+              sessionStorage.setItem('baize_heatmap_url', decodeURIComponent(web_url[1]));
             }
-            sessionStorage.setItem('sensors_heatmap_id', match[1]);
+            sessionStorage.setItem('baize_heatmap_id', match[1]);
 
             if (type && type[0] && type[1]) {
               if (type[1] === '1' || type[1] === '2' || type[1] === '3') {
                 type = type[1];
-                sessionStorage.setItem('sensors_heatmap_type', type);
+                sessionStorage.setItem('baize_heatmap_type', type);
               } else {
                 type = null;
               }
             } else {
-              if (sessionStorage.getItem('sensors_heatmap_type') !== null) {
-                type = sessionStorage.getItem('sensors_heatmap_type');
+              if (sessionStorage.getItem('baize_heatmap_type') !== null) {
+                type = sessionStorage.getItem('baize_heatmap_type');
               } else {
                 type = null;
               }
             }
           }
           isReady(match[1], type);
-        } else if (_.sessionStorage.isSupport() && typeof sessionStorage.getItem('sensors_heatmap_id') === 'string') {
+        } else if (_.sessionStorage.isSupport() && typeof sessionStorage.getItem('baize_heatmap_id') === 'string') {
           heatmap.setNotice();
-          isReady(sessionStorage.getItem('sensors_heatmap_id'), sessionStorage.getItem('sensors_heatmap_type'), location.href);
+          isReady(sessionStorage.getItem('baize_heatmap_id'), sessionStorage.getItem('baize_heatmap_type'), location.href);
         } else {
           todo();
           if (_.isObject(sd.para.heatmap)) {
@@ -4265,21 +4266,21 @@
         }
 
         function getAndroid() {
-          if (typeof window.SensorsData_APP_JS_Bridge === 'object' && window.SensorsData_APP_JS_Bridge.sensorsdata_call_app) {
-            app_info = SensorsData_APP_JS_Bridge.sensorsdata_call_app();
+          if (typeof window.BaizeData_APP_JS_Bridge === 'object' && window.BaizeData_APP_JS_Bridge.baizedata_call_app) {
+            app_info = BaizeData_APP_JS_Bridge.baizedata_call_app();
             if (_.isJSONString(app_info)) {
               app_info = JSON.parse(app_info);
             }
           }
         }
-        window.sensorsdata_app_js_bridge_call_js = function(data) {
+        window.BaizeData_APP_JS_Bridge_call_js = function(data) {
           setAppInfo(data);
         };
 
         function calliOS() {
           if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
             var iframe = document.createElement("iframe");
-            iframe.setAttribute("src", "sensorsanalytics://getAppInfo");
+            iframe.setAttribute("src", "baizeanalytics://getAppInfo");
             document.documentElement.appendChild(iframe);
             iframe.parentNode.removeChild(iframe);
             iframe = null;
@@ -4369,7 +4370,7 @@
       sd[method] = function() {
         if (!sd.readyState.getState()) {
           try {
-            console.error('请先初始化神策JS SDK');
+            console.error('请先初始化白泽JS SDK');
           } catch (e) {
             sd.log(e);
           }

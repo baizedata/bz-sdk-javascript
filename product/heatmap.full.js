@@ -8128,10 +8128,10 @@
       var href = _.urlParse(location.href);
       var obj = {};
 
-      obj['sa-request-url'] = sessionStorage.getItem('sensors_heatmap_url');
+      obj['sa-request-url'] = sessionStorage.getItem('baize_heatmap_url');
       obj['sa-request-url'] = obj['sa-request-url'] ? encodeURIComponent(obj['sa-request-url']) : '';
-      obj['sa-request-id'] = sessionStorage.getItem('sensors_heatmap_id');
-      obj['sa-request-type'] = sessionStorage.getItem('sensors_heatmap_type') || '1';
+      obj['sa-request-id'] = sessionStorage.getItem('baize_heatmap_id');
+      obj['sa-request-type'] = sessionStorage.getItem('baize_heatmap_type') || '1';
       $.each(obj, function(a, b) {
         if (!b) {
           delete obj[a];
@@ -8441,7 +8441,7 @@
                 error: '服务异常'
               });
             }
-            sessionStorage.removeItem('sensors_heatmap_id');
+            sessionStorage.removeItem('baize_heatmap_id');
           }
         });
 
@@ -8770,7 +8770,7 @@
             },
             error: function(res) {
               me.showErrorInfo(2, res);
-              sessionStorage.removeItem('sensors_heatmap_id');
+              sessionStorage.removeItem('baize_heatmap_id');
             }
           });
         } else {
@@ -8789,7 +8789,7 @@
             },
             error: function(res) {
               me.showErrorInfo(4, res);
-              sessionStorage.removeItem('sensors_heatmap_id');
+              sessionStorage.removeItem('baize_heatmap_id');
             }
           });
         }
@@ -9274,7 +9274,7 @@
             window.parent.window.postMessage({
               method: 'setUrl',
               params: {
-                request_type: sessionStorage.getItem('sensors_heatmap_type') || '1',
+                request_type: sessionStorage.getItem('baize_heatmap_type') || '1',
                 url: location.href
               }
             }, sd.para.web_url);
@@ -9296,8 +9296,8 @@
       }
 
       var web_url = sd.para.web_url || null;
-      if (_.sessionStorage.isSupport() && sessionStorage.getItem && sessionStorage.getItem('sensors_heatmap_url')) {
-        web_url = sessionStorage.getItem('sensors_heatmap_url') || null;
+      if (_.sessionStorage.isSupport() && sessionStorage.getItem && sessionStorage.getItem('baize_heatmap_url')) {
+        web_url = sessionStorage.getItem('baize_heatmap_url') || null;
       }
 
       function hasGetWebUrl() {
@@ -9312,7 +9312,7 @@
 
       if (web_url) {
         sd.para.web_url = web_url;
-        sessionStorage.setItem('sensors_heatmap_url', web_url);
+        sessionStorage.setItem('baize_heatmap_url', web_url);
         hasGetWebUrl();
       } else {
         heatmap_render.showErrorInfo(2, {
