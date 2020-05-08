@@ -2608,28 +2608,28 @@
       }
     };
 
-    sd.appendProfile = function(p, c) {
-      if (saEvent.check({
-          propertiesMust: p
-        })) {
-        _.each(p, function(value, key) {
-          if (_.isString(value)) {
-            p[key] = [value];
-          } else if (_.isArray(value)) {
-            p[key] = value;
-          } else {
-            delete p[key];
-            sd.log('appendProfile属性的值必须是字符串或者数组');
-          }
-        });
-        if (!_.isEmptyObject(p)) {
-          saEvent.send({
-            type: 'profile_append',
-            properties: p
-          }, c);
-        }
-      }
-    };
+    // sd.appendProfile = function(p, c) {
+    //   if (saEvent.check({
+    //       propertiesMust: p
+    //     })) {
+    //     _.each(p, function(value, key) {
+    //       if (_.isString(value)) {
+    //         p[key] = [value];
+    //       } else if (_.isArray(value)) {
+    //         p[key] = value;
+    //       } else {
+    //         delete p[key];
+    //         sd.log('appendProfile属性的值必须是字符串或者数组');
+    //       }
+    //     });
+    //     if (!_.isEmptyObject(p)) {
+    //       saEvent.send({
+    //         type: 'profile_append',
+    //         properties: p
+    //       }, c);
+    //     }
+    //   }
+    // };
     // sd.incrementProfile = function(p, c) {
     //   var str = p;
     //   if (_.isString(p)) {
@@ -4355,7 +4355,7 @@
       'trackSignup',
       'setProfile',
       // 'setOnceProfile',
-      'appendProfile',
+      // 'appendProfile',
       // 'incrementProfile',
       // 'deleteProfile',
       // 'unsetProfile',

@@ -32,6 +32,8 @@ router.beforeEach(function (to,from,next){
     next();
     //console.log('to:', to, 'from:', from, 'URL:', document.URL);
     baize.quick("autoTrackSinglePage"); // after the next(); statement
+
+    baize.setProfile({email: 'aaa@'})
   },0);
 });
 

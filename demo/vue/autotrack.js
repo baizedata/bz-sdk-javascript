@@ -5,7 +5,7 @@
   }
   w['BaizeAnalyticsV20202005'] = n;
   w[n] = w[n] || function(a) {return function() {(w[n]._q = w[n]._q || []).push([a, arguments]);}};
-  var ifs = ['track','quick','register','registerPage','registerOnce','trackSignup','setProfile','appendProfile','setOnceProfile','identify','login','logout','clearAllRegister','getAppStatus'];
+  var ifs = ['track','quick','register','registerPage','registerOnce','trackSignup','setProfile','setOnceProfile','identify','login','logout','clearAllRegister','getAppStatus'];
   for (var i = 0; i < ifs.length; i++) {
     w[n][ifs[i]] = w[n].call(null, ifs[i]);
   }
